@@ -132,6 +132,10 @@ class Messenger(object):
         :param recipient_name: Name of the email"s recipient (ex: John)
         :type recipient_name: str
         """
+        
+        if not self.gmail:
+            return        
+        
         if recipient_name is None:
             recipient_name = self.recipient_name
         main_market, coin = order["Exchange"].split("-")
@@ -157,6 +161,10 @@ class Messenger(object):
         :param recipient_name: Name of the email's recipient (ex: John)
         :type recipient_name: str
         """
+        
+        if not self.gmail:
+            return        
+        
         if recipient_name is None:
             recipient_name = self.recipient_name
         main_market, coin = order["Exchange"].split("-")
@@ -180,6 +188,10 @@ class Messenger(object):
         :param day_volume: Coin pair's current 24 hour volume
         :type day_volume: float
         """
+        
+        if not self.slack:
+            return
+        
         main_market, coin = coin_pair.split("-")
         slack_emoji = self.slack_buy_str["emoji"] * 8 + "\n"
         slack_message = slack_emoji + self.slack_buy_str["message"].format(coin_pair, ceil(rsi), floor(day_volume),
@@ -197,6 +209,10 @@ class Messenger(object):
         :param profit_margin: Profit made on the trade
         :type profit_margin: float
         """
+        
+        if not self.slack:
+            return
+        
         slack_emoji = self.slack_sell_str["emoji"] * 8 + "\n"
         slack_message = slack_emoji + self.slack_sell_str["message"].format(coin_pair, floor(rsi),
                                                                             round(profit_margin, 2))
